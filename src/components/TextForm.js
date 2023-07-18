@@ -11,18 +11,6 @@ export default function TextForm(props) {
   const handleOnChange = (event)=>{
     // console.log("On change"); 
    setText(event.target.value);
-   let word = event.target.value; 
-   const words = ()=>{
-    if (word.length === 0) {
-      return 0;
-    } else {
-      word = word.replace(/(^\s*)|(\s*$)/gi,"");
-      word = word.replace(/[ ]{2,}/gi," ");
-      word = word.replace(/\n /,"\n");
-      return word.split(' ').length; 
-    }
-   }
-   setWordCount(words(word));
    }
    const handleLoClick = ()=>{
     let newText = text.toLowerCase();
@@ -53,7 +41,6 @@ export default function TextForm(props) {
    return count;
    }
   const [text,setText] = useState("");
-  const [wordCount,setWordCount] = useState(0);
 
   return (
     <>
@@ -67,21 +54,21 @@ export default function TextForm(props) {
           value={text}
           onChange={handleOnChange}
           placeholder="Enter Text Here"
-          style={{backgroundColor:props.mode==="dark"?"grey":"white" , color:props.mode==="dark"?"white":"black"}}
+          style={{backgroundColor:props.mode==="dark"?"#13466e":"white" , color:props.mode==="dark"?"white":"black"}}
         ></textarea>
-        <button className="btn btn-primary my-2 mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
-        <button className="btn btn-primary my-2 mx-1" onClick={handleLoClick}>Convert to Lowercase</button>
-        <button className="btn btn-primary my-2 mx-1" onClick={handleShortString}>Shorten to 100 words</button>
-        <button className="btn btn-primary my-2 mx-1" onClick={removeExtraSpaces}>Remove Extra Spaces</button>
-        <button className="btn btn-primary my-2 mx-1" onClick={handleClearClick}>Clear Text</button>
+        <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
+        <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleLoClick}>Convert to Lowercase</button>
+        <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleShortString}>Shorten to 100 words</button>
+        <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={removeExtraSpaces}>Remove Extra Spaces</button>
+        <button disabled={text.length===0} className="btn btn-primary my-2 mx-1" onClick={handleClearClick}>Clear Text</button>
       </div>
     </div>
     <div className="container my-2" style={{ color:props.mode==="dark"?"white":"black"}}>
       <h2>Your text summary</h2>
-      <p>{wordCount} words and {text.length} characters {Vowels()} vowels</p>
-      <p>{0.008 * text.split(" ").length} Minutes read</p>
+      <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} characters {Vowels()} vowels</p>
+      <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read</p>
       <h2>Preview</h2>
-      <p>{text.length>0?text:"Enter something in the textbox above to preview it here"}</p>
+      <p>{text.length>0?text:"Nothing to preview"}</p>
     </div>
     </>
   );

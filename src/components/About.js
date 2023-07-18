@@ -1,33 +1,19 @@
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 
-export default function About() {
-  const [myStyle, setMyStyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-  });
-  const [btntext,setBtnText] = useState("Enable Dark Mode")
-
-  const toggleStyle = () => {
-    if (myStyle.color === "black") {
-        setBtnText("Enable Light Mode");
-      setMyStyle({
-        color: "white",
-        backgroundColor: "black",
-        border:"1px solid white",
-        padding:"1%"
-      });
-    } else {
-        setBtnText("Enable Dark Mode");
-      setMyStyle({
-        color: "black",
-        backgroundColor: "white",
-      });
-    }
+export default function About(props) {
+  // const [myStyle, setMyStyle] = useState({
+  //   color: "black",
+  //   backgroundColor: "white",
+  // });
+  let myStyle = {
+    color: props.mode === "dark" ? "white" : "#374259",
+    backgroundColor: props.mode === "dark" ? "#374259" : "white",
   };
   return (
-    <div classNameName="container" style={myStyle}>
+    <div className="container" style={{color: props.mode === "dark" ? "white" : "#374259"}}>
       <h1 className="my-2">About Us</h1>
+      <div className="box rounded" style={{ borderColor:props.mode==="dark"?"white":"black",border:"2px solid",}}>
       <div
         className="accordion accordion-flush"
         id="accordionFlushExample"
@@ -44,7 +30,7 @@ export default function About() {
               aria-controls="flush-collapseOne"
               style={myStyle}
             >
-              Accordion Item #1
+              <strong>Newsletter Subscription</strong>
             </button>
           </h2>
           <div
@@ -54,9 +40,9 @@ export default function About() {
             data-bs-parent="#accordionFlushExample"
           >
             <div className="accordion-body" style={myStyle}>
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> className. This is
-              the first item's accordion body.
+              Stay up-to-date with all the exciting developments by subscribing
+              to our newsletter. Get exclusive content, special offers, and
+              early access to resources delivered right to your inbox.
             </div>
           </div>
         </div>
@@ -71,7 +57,7 @@ export default function About() {
               aria-controls="flush-collapseTwo"
               style={myStyle}
             >
-              Accordion Item #2
+              <strong>Community Support</strong>
             </button>
           </h2>
           <div
@@ -81,10 +67,10 @@ export default function About() {
             data-bs-parent="#accordionFlushExample"
           >
             <div className="accordion-body" style={myStyle}>
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> className. This is
-              the second item's accordion body. Let's imagine this being filled
-              with some actual content.
+              Being part of a like-minded community is essential for personal
+              and professional growth. Connect with other individuals who share
+              your interests, exchange ideas, and learn from each other in our
+              vibrant community forum.
             </div>
           </div>
         </div>
@@ -99,7 +85,7 @@ export default function About() {
               aria-controls="flush-collapseThree"
               style={myStyle}
             >
-              Accordion Item #3
+              <strong>Interactive Tools</strong>
             </button>
           </h2>
           <div
@@ -109,20 +95,15 @@ export default function About() {
             data-bs-parent="#accordionFlushExample"
           >
             <div className="accordion-body" style={myStyle}>
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> className. This is
-              the third item's accordion body. Nothing more exciting happening
-              here in terms of content, but just filling up the space to make it
-              look, at least at first glance, a bit more representative of how
-              this would look in a real-world application.
+              To make your journey even more engaging and effective, we offer
+              interactive tools and features that will assist you in [Describe
+              what kind of tools or features you provide]. These tools are
+              designed to simplify complex processes and help you achieve your
+              goals with ease.
             </div>
           </div>
         </div>
       </div>
-      <div className="container my-3">
-        <button type="button" className="btn btn-primary" onClick={toggleStyle}>
-          {btntext}
-        </button>
       </div>
     </div>
   );
